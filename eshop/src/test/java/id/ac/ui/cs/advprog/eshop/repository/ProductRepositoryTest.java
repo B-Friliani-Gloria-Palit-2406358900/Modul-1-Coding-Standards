@@ -109,4 +109,21 @@ class ProductRepositoryTest {
         Iterator<Product> iterator = productRepository.findAll();
         assertFalse(iterator.hasNext());
     }
+
+    @Test
+    void testUpdateProductNotFound() {
+        Product product = new Product();
+        product.setProductId("999");
+        product.setProductName("Tidak ada");
+        product.setProductQuantity(5);
+
+        Product result = productRepository.update(product);
+
+        assertNull(result);
+    }
+
+    @Test
+    void testDeleteProductNotFound() {
+        assertDoesNotThrow(() -> productRepository.delete("999"));
+    }
 }
